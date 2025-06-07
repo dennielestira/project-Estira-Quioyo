@@ -1,6 +1,6 @@
-open the project until student_mgmt
+create your own virtual environment -- py -m venv venv
 
-open the terminal then code .
+open it in visual studio code
 
 install dependencies -- pip install requirements.txt
 
