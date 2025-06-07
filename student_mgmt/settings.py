@@ -61,6 +61,10 @@ MIDDLEWARE = [
 ]
 
 MIDDLEWARE = ['corsheaders.middleware.CorsMiddleware'] + MIDDLEWARE
+CSRF_TRUSTED_ORIGINS = [
+    'https://project-estira-quioyo.onrender.com',
+    'https://project-estira-quioyo-ncti.onrender.com',
+]
 CORS_ALLOW_ALL_ORIGINS = True  # Or better: specify with CORS_ALLOWED_ORIGINS
 
 ROOT_URLCONF = 'student_mgmt.urls'
