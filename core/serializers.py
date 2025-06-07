@@ -1,6 +1,10 @@
 from rest_framework import serializers
 from .models import Student, Subject, Quiz, Activity, Exam, Grade
 
+class NestedSubjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subject
+        fields = ['id', 'name', 'code']
 
 class SubjectSerializer(serializers.ModelSerializer):
     students = serializers.PrimaryKeyRelatedField(
@@ -14,11 +18,12 @@ class SubjectSerializer(serializers.ModelSerializer):
 
 
 class StudentSerializer(serializers.ModelSerializer):
-    subjects = SubjectSerializer(many=True, read_only=True)
+    subjects = NestedSubjectSerializer(many=True, read_only=True)
 
     class Meta:
         model = Student
         fields = '__all__'
+
 
 
 class QuizSerializer(serializers.ModelSerializer):
