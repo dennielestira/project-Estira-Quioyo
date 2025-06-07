@@ -66,7 +66,7 @@
             outline: none;
         }
 
-        .btn {
+        .btns{
             display: block;
             width: 100%;
             margin-top: 30px;
@@ -83,7 +83,7 @@
             text-decoration: none;
         }
 
-        .btn:hover {
+        .btns:hover {
             background-color: #2980b9;
         }
 
@@ -92,7 +92,7 @@
         }
 
         /* For the Home button outside form */
-        .home-btn {
+        .home-btns {
             max-width: 700px;
             margin: 20px auto 0 auto;
             display: block;
@@ -106,7 +106,7 @@
             transition: background-color 0.3s;
         }
 
-        .home-btn:hover {
+        .home-btns:hover {
             background-color: #2980b9;
         }
     </style>
@@ -146,7 +146,7 @@
                 </div>
             {% endfor %}
 
-            <button type="submit" class="btn">
+            <button type="submit" class="btns">
                 {% if is_editing %}Update{% else %}Insert{% endif %} Grades
             </button>
         </form>
