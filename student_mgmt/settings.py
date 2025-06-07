@@ -31,12 +31,7 @@ REST_FRAMEWORK = {
     ]
 }
 
-ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    'danger.pythonanywhere.com',
-    'project-estira-quioyo.onrender.com',# Replace with your actual PythonAnywhere subdomain
-]
+ALLOWED_HOSTS = ['*']
 
 
 
