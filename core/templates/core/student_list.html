@@ -138,16 +138,18 @@
         <button class="btn subject-btn" onclick="toggleSubjects('subjects{{ student.id }}')">View Subjects</button>
         <div id="subjects{{ student.id }}" style="display:none; margin-top:10px;">
           <ul>
-            {% for subject in student.subjects.all %}
-              <li>
-                {{ subject.name }} - {{ subject.code }}
-                <button class="btn subject-btn" onclick="window.location.href='{% url 'subject_detail' subject.id %}'">
-                  View
-                </button>
-              </li>
-            {% empty %}
+            {% if student.subjects %}
+              {% for subject in student.subjects %}
+                <li>
+                  {{ subject.name }} - {{ subject.code }}
+                  <button class="btn subject-btn" onclick="window.location.href='/subjects/{{ subject.id }}/'">
+                    View
+                  </button>
+                </li>
+              {% endfor %}
+            {% else %}
               <li>No subjects enrolled.</li>
-            {% endfor %}
+            {% endif %}
           </ul>
         </div>
       </div>
