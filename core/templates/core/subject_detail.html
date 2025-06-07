@@ -1,0 +1,127 @@
+{% extends "core/home.html" %}
+
+{% block title %}{{ subject.name }} - Subject Details{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    h2 {
+        color: #333;
+    }
+    h3 {
+        margin-top: 30px;
+    }
+    .btn {
+        padding: 8px 16px;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+    .btn:hover {
+        background-color: #45a049;
+    }
+    .action-links {
+        margin-top: 15px;
+    }
+    .grade-input {
+        width: 60px;
+    }
+    .edit-btn {
+        background-color: #FFA500;
+    }
+    .edit-btn:hover {
+        background-color: #e68900;
+    }
+</style>
+
+<h2>{{ subject.name }}</h2>
+
+<h3>Enrolled Students</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Student Name</th>
+            {% for quiz in quizzes %}
+                <th>{{ quiz.title }} (Quiz)</th>
+            {% endfor %}
+            {% for activity in activities %}
+                <th>{{ activity.title }} (Activity)</th>
+            {% endfor %}
+            {% for exam in exams %}
+                <th>{{ exam.title }} (Exam)</th>
+            {% endfor %}
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in student_rows %}
+        <tr>
+            <td>{{ student.name }}</td>
+
+            {% for score in student.quiz_scores %}
+                <td>{{ score }}</td>
+            {% endfor %}
+
+            {% for score in student.activity_scores %}
+                <td>{{ score }}</td>
+            {% endfor %}
+
+            {% for score in student.exam_scores %}
+                <td>{{ score }}</td>
+            {% endfor %}
+
+            <td>
+                {% if student.has_grades %}
+                    <a href="{% url 'edit_grade' subject.id student.id %}" class="btn edit-btn">Edit Grade</a>
+                {% else %}
+                    <a href="{% url 'insert_grade' subject.id student.id %}" class="btn">Insert Grade</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="action-links">
+    <h3>Manage Assessments</h3>
+    <a class="btn" href="{% url 'quiz_add' subject.id %}">Add Quiz</a> |
+    <a class="btn" href="{% url 'activity_add' subject.id %}">Add Activity</a> |
+    <a class="btn" href="{% url 'exam_add' subject.id %}">Add Exam</a>
+</div>
+
+<br><br><br>
+<a href="{% url 'base' %}" class="btn">Home</a>
+
+<script>
+    function editGrade(studentId) {
+        const inputs = document.querySelectorAll('.input-' + studentId);
+        const saveBtn = document.querySelector('.save-btn-' + studentId);
+
+        inputs.forEach(input => {
+            input.removeAttribute('readonly');
+            input.style.border = '1px solid #ccc';
+        });
+
+        if (saveBtn) {
+            saveBtn.style.display = 'inline-block';
+        }
+    }
+</script>
+{% endblock %}

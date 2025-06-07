@@ -1,0 +1,57 @@
+{% extends "core/home.html" %}
+
+{% block title %}
+  Base
+{% endblock %}
+
+{% block content %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+  .welcome-container {
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    padding: 50px 20px;
+    background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+    border-radius: 20px;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-in-out;
+  }
+
+  .welcome-container h1 {
+    font-size: 36px;
+    color: #1d3557;
+    font-weight: 700;
+    margin-bottom: 15px;
+  }
+
+  .welcome-container h2 {
+    font-size: 22px;
+    color: #457b9d;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  .animated-text {
+    display: inline-block;
+    color: #fca311;
+    animation: bounce 1.2s infinite;
+    font-size: 26px;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+</style>
+
+<div class="welcome-container">
+  <h1>👋 Welcome to <span class="animated-text">Student Management System</span></h1>
+</div>
+{% endblock %}

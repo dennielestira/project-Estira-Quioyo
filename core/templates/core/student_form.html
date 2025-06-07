@@ -1,0 +1,113 @@
+{% extends "core/home.html" %}
+
+{% block title %}{% if student %}Edit{% else %}Add{% endif %} Student{% endblock %}
+
+{% block content %}
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+    }
+
+    .form-container {
+      max-width: 600px;
+      background: white;
+      margin: auto;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: #555;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="date"],
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+
+  <div class="core">
+  <div class="form-container">
+    <h2>{% if student %}Edit{% else %}Add{% endif %} Student</h2>
+    <form method="post">
+      {% csrf_token %}
+
+      <label>First Name:</label>
+      <input type="text" name="first_name" value="{{ student.first_name|default:'' }}">
+
+      <label>Last Name:</label>
+      <input type="text" name="last_name" value="{{ student.last_name|default:'' }}">
+
+      <label>Contact Number:</label>
+      <input type="text" name="contact_number" value="{{ student.contact_number|default:'' }}">
+
+      <label>Student Number:</label>
+      <input type="text" name="student_number" value="{{ student.student_number|default:'' }}">
+
+      <label>Date of Birth:</label>
+      <input type="date" name="date_of_birth" value="{{ student.date_of_birth|default:'' }}">
+
+      <label>Section:</label>
+      <input type="text" name="section" value="{{ student.section|default:'' }}">
+
+      <label>Course:</label>
+      <input type="text" name="course" value="{{ student.course|default:'' }}">
+
+      <label>Email:</label>
+      <input type="email" name="email" value="{{ student.email|default:'' }}">
+
+      <label>Gender:</label>
+      <select name="gender">
+        <option value="M" {% if student.gender == "M" %}selected{% endif %}>Male</option>
+        <option value="F" {% if student.gender == "F" %}selected{% endif %}>Female</option>
+        <option value="O" {% if student.gender == "O" %}selected{% endif %}>Other</option>
+      </select>
+
+      <label>Year Level:</label>
+      <select name="year_level">
+        <option value="1" {% if student.year_level == "1" %}selected{% endif %}>First Year</option>
+        <option value="2" {% if student.year_level == "2" %}selected{% endif %}>Second Year</option>
+        <option value="3" {% if student.year_level == "3" %}selected{% endif %}>Third Year</option>
+        <option value="4" {% if student.year_level == "4" %}selected{% endif %}>Fourth Year</option>
+      </select>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

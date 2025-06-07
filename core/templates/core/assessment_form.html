@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Add {{ type }}</title>
+<style>
+  /* Basic reset */
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background: #f9f9f9;
+    color: #333;
+  }
+
+  h2 {
+    text-align: center;
+    color: #2c3e50;
+  }
+
+  form {
+    max-width: 400px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+
+  input[type="text"]:focus {
+    border-color: #3498db;
+    outline: none;
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #3498db;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #2980b9;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 480px) {
+    form {
+      padding: 15px 20px;
+    }
+    button {
+      font-size: 1rem;
+      padding: 10px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h2>Add {{ type }}</h2>
+
+<form method="post">
+  {% csrf_token %}
+  <label for="title">Title:</label>
+  <input type="text" name="title" id="title" required />
+
+  <button type="submit">Save</button>
+</form>
+
+</body>
+</html>

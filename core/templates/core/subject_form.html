@@ -1,0 +1,131 @@
+{% extends "core/home.html" %}
+
+{% block title %}
+  {% if subject %}Edit{% else %}Add{% endif %} Subject
+{% endblock %}
+
+{% block content %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+  body {
+    background: white;
+    display: flex;
+    justify-content: center;
+    padding: 50px 15px;
+    font-family: 'Poppins', sans-serif;
+  }
+  form {
+    background: #ffffffcc;
+    backdrop-filter: blur(15px);
+    border-radius: 16px;
+    max-width: 450px;
+    width: 100%;
+    padding: 35px 40px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    border: 1px solid #d1d9e6;
+    transition: box-shadow 0.3s ease;
+  }
+  form:hover {
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+  }
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 15px;
+    letter-spacing: 0.04em;
+  }
+  input[type="text"] {
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 25px;
+    border: 2px solid #a8dadc;
+    border-radius: 10px;
+    font-size: 16px;
+    color: #1d3557;
+    background: #f1f7f9;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+  }
+  input[type="text"]:focus {
+    border-color: #457b9d;
+    background: #eaf4fc;
+    outline: none;
+  }
+  .checkbox-group {
+    margin-bottom: 30px;
+  }
+  .checkbox-group label {
+    font-weight: 500;
+    color: #264653;
+    display: flex;
+    align-items: center;
+    margin-bottom: 14px;
+    cursor: pointer;
+    font-size: 15px;
+    user-select: none;
+  }
+  .checkbox-group input[type="checkbox"] {
+    margin-right: 12px;
+    width: 20px;
+    height: 20px;
+    accent-color: #1d3557;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1.5px solid #457b9d;
+  }
+  button[type="submit"] {
+    background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+    color: white;
+    font-weight: 700;
+    padding: 14px 0;
+    width: 100%;
+    border: none;
+    border-radius: 14px;
+    font-size: 18px;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(59, 130, 246, 0.6);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+  }
+  button[type="submit"]:hover {
+    background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.8);
+  }
+  p {
+    color: #4a4a4a;
+    font-size: 14px;
+    font-style: italic;
+  }
+</style>
+
+<form method="post" novalidate>
+  {% csrf_token %}
+  <h2 style="text-align:center; font-family: 'Poppins', sans-serif; color:#34495e; margin-bottom: 25px;">
+    {% if subject %}Edit{% else %}Add{% endif %} Subject
+  </h2>
+
+  <label for="subject-name">Subject Name</label>
+  <input id="subject-name" type="text" name="name" value="{{ subject.name|default_if_none:'' }}" required placeholder="Enter subject name">
+
+  <label for="subject-code">Subject Code</label>
+  <input id="subject-code" type="text" name="code" value="{{ subject.code|default_if_none:'' }}" required placeholder="Enter subject code">
+
+  <div class="checkbox-group">
+    <label>Enrolled Students</label>
+    {% for student in students %}
+      <label>
+        <input type="checkbox" name="students" value="{{ student.id }}"
+          {% if student.id in enrolled_student_ids %}checked{% endif %}>
+        {{ student.first_name }} {{ student.last_name }}
+      </label>
+    {% empty %}
+      <p>No students available.</p>
+    {% endfor %}
+  </div>
+
+  <button type="submit">Submit</button>
+</form>
+{% endblock %}

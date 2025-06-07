@@ -1,0 +1,87 @@
+{% extends "core/home.html" %}
+
+{% block title %}Subjects{% endblock %}
+
+{% block content %}
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f7fa;
+    margin: 2rem;
+  }
+  h1 {
+    color: #333;
+  }
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 1.5rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  }
+  a.button, button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 6px;
+  }
+  a.button:hover, button:hover {
+    background-color: #0056b3;
+  }
+  ul.subject-list {
+    list-style: none;
+    padding: 0;
+  }
+  ul.subject-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    border-bottom: 1px solid #ddd;
+  }
+  ul.subject-list li:last-child {
+    border-bottom: none;
+  }
+  .subject-name {
+    flex: 1;
+    font-weight: 600;
+    color: #222;
+  }
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  form {
+    margin: 0;
+  }
+</style>
+
+<div class="container">
+  <h1>Subjects</h1>
+  <a href="{% url 'subject_add' %}" class="button">Add Subject</a>
+  <ul class="subject-list">
+    {% for subject in subjects %}
+    <li>
+      <span class="subject-name">{{ subject.name }}</span>
+      <div class="actions">
+        <a href="{% url 'subject_detail' subject.id %}" class="button">View</a>
+        <a href="{% url 'subject_edit' subject.id %}" class="button" style="background-color:#28a745;">Edit</a>
+        <form method="post" action="{% url 'subject_delete' subject.id %}" onsubmit="return confirm('Are you sure you want to delete this subject?');">
+          {% csrf_token %}
+          <button type="submit" style="background-color:#dc3545;">Delete</button>
+        </form>
+      </div>
+    </li>
+    {% empty %}
+    <li>No subjects found.</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
